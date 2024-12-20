@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="style.css"/>
+    <title>Quadratic Quiz Quest</title>
+</head>
+<body>
+<main>
+    <h1>Quadratic Quest</h1>
+    <form>
+        <fieldset><label for="toSimpRad">Simplify Radical Expression:</label><br><input type="number" id="toSimpRad" placeholder="123"><label for="degree"></label>Degree<input type="number" id="degree" min=2 max=9 step=1 value=2>
+            <button type="button" id="toSimpRadBtn" disabled>Come Back Soon!</button>
+        </fieldset>
+    </form>
+    <output id="toSimpRadOutput" class="output hidden"></output>
+    <br>
+    <form>
+        <fieldset><label for="toWords">Solve Quadratic Equation:</label><br><input type="number" id="toWords" placeholder="456">
+            <button type="button" id="toWordsConvertBtn" disabled>Come Back Soon!</button>
+        </fieldset>
+    </form>
+    <output id="toWordsOutput" class="output hidden"></output>
+</main>
+<script type="module" src="main.js"></script>
+
+</body>
+</html>
