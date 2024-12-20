@@ -1,3 +1,2 @@
 # quadratic-quiz-quest
-A math solver and problem generator
-Currently, a work in progress
+A math solver and problem generator, currently a work in progress
