@@ -15,16 +15,23 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
 
+}
+html {
+    background: url('TechRainbow1.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 body {
     min-height: 100vh;
     padding: 50px 20px;
     font-family: 'Lato', Helvetica, Arial, sans-serif;
     font-size: 18px;
-    background-color: var(--gray-85);
+
     color: var(--gray-05);
-    background-image: url("TechRainbow1.jpg");
+
 }
 
 main {
@@ -53,6 +60,7 @@ form {
 }
 
 fieldset {
+    display: inline;
     border: 0 none;
     height: 100%;
     padding: 25px;
@@ -71,7 +79,7 @@ button {
 }
 
 label {
-    display: inline-block;
+    display: inline;
     font-size: 1.5rem;
     margin-bottom: 10px;
     font-weight: bold;
@@ -83,7 +91,7 @@ button:focus-visible {
 }
 
 input {
-    display: block;
+    display: inline;
     font-size: 2.5rem;
     width: 100%;
     height: 60px;

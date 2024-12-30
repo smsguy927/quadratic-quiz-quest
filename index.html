@@ -28,12 +28,12 @@
     <output id="toSimpRadOutBox" class="output hidden"><math id="simpRad"></math></output>
     <br>
     <form>
-        <fieldset><label for="toWords">Solve Quadratic Equation:</label><br>
-            <input type="number" id="toWords" placeholder="456">
-            <button type="button" id="toWordsConvertBtn" disabled>Come Back Soon!</button>
+        <fieldset><label for="quadraticInput">Solve Quadratic Equation:</label><br>
+            <input type="text" id="quadraticInput" placeholder="12x^2+34x+56" pattern="-?\d*([A-Za-z])\^2[\+\-]\d*\1[\+\-]d*" required>
+            <button type="button" id="solveQuadraticBtn" >Almost There!</button>
         </fieldset>
     </form>
-    <output id="toWordsOutput" class="output hidden"></output>
+    <output id="quadraticOutput" class="output hidden"></output>
 </main>
 <script type="module" src="main.js"></script>
 

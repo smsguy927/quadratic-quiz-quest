@@ -33,12 +33,136 @@ const simplifyRadical = (int, degree = 2) => {
             k++
         }
     }
-    if(result.radicand === 1){
+    if (result.radicand === 1) {
         result.degree = 1
     }
     return result
 }
 
+function removeSpaces(str) {
+    return str.replace(/\s+/g, "");
+}
+
+function isDigit(char) {
+    return char.charCodeAt(0) >= 48 && char.charCodeAt(0) <= 57
+}
+
+function isAlpha(char) {
+    return (char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 90) || (char.charCodeAt(0) >= 97 && char.charCodeAt(0) <= 122)
+}
+
+function advancePart(char) {
+    return String.fromCharCode(char.charCodeAt(0) + 1)
+}
+
+const parseQuadratic = (equation) => {
+    equation = removeSpaces(equation)
+    const parts = {
+        a: 1,
+        b: 1,
+        c: 1
+    }
+    let currentPart = 'a'
+    let digitStart = 0
+    let digitEnd = 0
+    for (let i = 0; i < equation.length; i++) {
+        if (equation[i] === '-') {
+            parts[currentPart] *= -1
+            digitStart = i + 1
+            digitEnd = i + 1
+        } else if (equation[i] === '+') {
+            digitStart = i + 1
+            digitEnd = i + 1
+        } else if (isDigit(equation[i])) {
+            digitEnd++
+        } else {
+            parts[currentPart] *= parseInt(equation.slice(digitStart, digitEnd))
+            if (currentPart === 'a') {
+                i += 2
+            }
+            currentPart = advancePart(currentPart)
+        }
+    }
+    parts[currentPart] *= parseInt(equation.slice(digitStart, digitEnd))
+    return parts
+}
+
+const calcGreatestCommonFactor = (x, y) => {
+    // Check if both x and y are of type number, if not, return false.
+    if ((typeof x !== 'number') || (typeof y !== 'number')) {
+        alert(`${x}, ${y}`)
+        return false;
+    }
+    // Take the absolute values of x and y to ensure positivity.
+    x = Math.abs(x);
+    y = Math.abs(y);
+
+    // Iterate using the Euclidean algorithm to find the GCD.
+    while (y > 0) {
+        // Store the value of y in a temporary variable t.
+        const temp = y;
+        // Calculate the remainder of x divided by y and assign it to y.
+        y = x % y;
+        // Assign the value of t (previous value of y) to x.
+        x = temp;
+    }
+    // Return the GCD, which is stored in x after the loop.
+    return x;
+};
+const reduceFraction = (numerator, denominator) => {
+    const greatestCommonFactor = calcGreatestCommonFactor(numerator, denominator)
+    return {top: numerator / greatestCommonFactor, bottom: denominator / greatestCommonFactor}
+}
+
+const divideRadical = (radical, divisor) => {
+    const radCoef = radical.coefficient
+    if (radCoef % divisor === 0) {
+        radical.coefficient /= divisor
+    } else {
+        const reduced = reduceFraction(radical.radicand, divisor ** 2)
+        if(reduced.bottom === 1){
+            radical.radicand = reduced.top
+        } else {
+            radical.radicand = {
+                top: reduced.top,
+                bottom: reduced.bottom
+            }
+        }
+    }
+}
+
+/**
+ * Uses Quadratic Formula (https://en.wikipedia.org/wiki/Quadratic_formula)
+ * Returns an object in the form {topLeft, topRight, bottom}
+ * topLeft is -b , topRight is sqrt(-b**2 - 4ac), and
+ * bottom is 2a.
+ * Move the negative sign out of the denominator.
+ * Another function is needed to format the output.
+ */
+const solveQuadratic = (parts) => {
+    const bSquared = parts.b ** 2
+    const fourAC = 4 * parts.a * parts.c
+    const solved = {
+        topLeft: -parts.b,
+        topRight: simplifyRadical((parts.b ** 2) - (4 * parts.a * parts.c), 2),
+        bottom: 2 * parts.a
+    }
+    // Move the negative sign out of the denominator.
+    if (solved.bottom < 0) {
+        solved.topLeft *= -1
+        solved.bottom *= -1
+    }
+    const reducedFractionLeft = reduceFraction(solved.topLeft, solved.bottom)
+    const reducedBy = solved.bottom / reducedFractionLeft.bottom
+    divideRadical(solved.topRight, reducedBy)
+    solved.topLeft = reducedFractionLeft.top
+    solved.bottom = reducedFractionLeft.bottom
+
+    return solved
+}
+
 export {
-    simplifyRadical
+    simplifyRadical,
+    parseQuadratic,
+    solveQuadratic
 }
