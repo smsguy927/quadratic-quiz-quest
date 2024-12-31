@@ -58,7 +58,13 @@ form {
     max-width: 500px;
     background-color: var(--gray-75);
 }
-
+input:invalid:not(:placeholder-shown) {
+    border: 2px solid var(--error);
+}
+input:invalid~button {
+    cursor: not-allowed;
+    pointer-events: none;
+}
 fieldset {
     display: inline;
     border: 0 none;

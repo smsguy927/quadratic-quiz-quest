@@ -1,5 +1,5 @@
 import * as assert from "node:assert";
-import {simplifyRadical, parseQuadratic, solveQuadratic} from "../public/Math.js";
+import {simplifyRadical, parseQuadratic, solveQuadratic, reduceFraction} from "../public/Math.js";
 
 describe("simplifyRadical", function () {
     it('0 It returns a simplified radical object ', function () {
@@ -162,6 +162,53 @@ describe("simplifyRadical", function () {
         // Verify
         assert.deepStrictEqual(result, expected);
     })
+})
+describe('reduceFraction()', function () {
+    it('0 It returns a reduced fraction', function () {
+        // Setup
+        const input = [2, 2]
+        const expected = {top: 1, bottom: 1}
+
+        // Exercise
+        const result = reduceFraction(input[0], input[1]);
+
+        // Verify
+        assert.deepStrictEqual(result, expected);
+    })
+    it('1 It returns a reduced fraction', function () {
+        // Setup
+        const input = [3, 6]
+        const expected = {top: 1, bottom: 2}
+
+        // Exercise
+        const result = reduceFraction(input[0], input[1]);
+
+        // Verify
+        assert.deepStrictEqual(result, expected);
+    })
+    it('2 It returns a reduced fraction', function () {
+        // Setup
+        const input = [3, 7]
+        const expected = {top: 3, bottom: 7}
+
+        // Exercise
+        const result = reduceFraction(input[0], input[1]);
+
+        // Verify
+        assert.deepStrictEqual(result, expected);
+    })
+    it('3 It returns a reduced fraction', function () {
+        // Setup
+        const input = [-4, 6]
+        const expected = {top: -2, bottom: 3}
+
+        // Exercise
+        const result = reduceFraction(input[0], input[1]);
+
+        // Verify
+        assert.deepStrictEqual(result, expected);
+    })
+
 })
 describe('parseQuadratic()', function () {
     it('0 It returns a parsed quadratic object ', function () {
@@ -437,6 +484,22 @@ describe('solveQuadratic()', function () {
         // Verify
         assert.deepStrictEqual(result, expected);
     })
+    it('15 It returns solved quadratic', function () {
+        // Setup
+        const input = {a: 1, b: 0, c: 16}
+        const expected = {
+            topLeft: 0,
+            topRight: {coefficient: 4, isImaginary: true, degree: 1, radicand: 1},
+            bottom: 1
+        }
+
+        // Exercise
+        const result = solveQuadratic(input);
+
+        // Verify
+        assert.deepStrictEqual(result, expected);
+    })
+
 
 
 })

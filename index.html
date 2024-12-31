@@ -17,7 +17,7 @@
 <body>
 <main>
     <h1>Quadratic Quest</h1>
-    <form>
+    <form id="simplifyRadicalForm">
         <fieldset><label for="toSimpRad">Simplify Radical Expression:</label><br>
             <input type="number" id="toSimpRad" placeholder="123" required>
             <label for="degree"></label>Degree
@@ -27,13 +27,15 @@
     </form>
     <output id="toSimpRadOutBox" class="output hidden"><math id="simpRad"></math></output>
     <br>
-    <form>
+    <form id="solveQuadraticForm">
         <fieldset><label for="quadraticInput">Solve Quadratic Equation:</label><br>
-            <input type="text" id="quadraticInput" placeholder="12x^2+34x+56" pattern="-?\d*([A-Za-z])\^2[\+\-]\d*\1[\+\-]d*" required>
-            <button type="button" id="solveQuadraticBtn" >Almost There!</button>
+            <legend>Example: x^2+x+0</legend>
+            <input type="text" id="quadraticInput" placeholder="12x^2+34x+56" pattern="-?\d*([A-Za-z])\^2[\+\-]\d*\1[\+\-]\d*" required>
+            <button type="button" id="solveQuadraticBtn" >Solve</button>
         </fieldset>
     </form>
-    <output id="quadraticOutput" class="output hidden"></output>
+    <output id="quadraticOutBox" class="output hidden"><math id="quadratic"></math></output>
+    <p>Quiz Generator coming soon!</p>
 </main>
 <script type="module" src="main.js"></script>
 

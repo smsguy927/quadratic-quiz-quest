@@ -76,7 +76,11 @@ const parseQuadratic = (equation) => {
         } else if (isDigit(equation[i])) {
             digitEnd++
         } else {
-            parts[currentPart] *= parseInt(equation.slice(digitStart, digitEnd))
+            const digits = parseInt(equation.slice(digitStart, digitEnd))
+            if(!isNaN(digits)){
+                parts[currentPart] *= digits
+            }
+
             if (currentPart === 'a') {
                 i += 2
             }
@@ -131,6 +135,11 @@ const divideRadical = (radical, divisor) => {
     }
 }
 
+const addFractions = (left, right) => {
+    const added = {top: left.top + right.top, bottom: left.bottom}
+    return reduceFraction(added.top, added.bottom)
+}
+
 /**
  * Uses Quadratic Formula (https://en.wikipedia.org/wiki/Quadratic_formula)
  * Returns an object in the form {topLeft, topRight, bottom}
@@ -140,8 +149,7 @@ const divideRadical = (radical, divisor) => {
  * Another function is needed to format the output.
  */
 const solveQuadratic = (parts) => {
-    const bSquared = parts.b ** 2
-    const fourAC = 4 * parts.a * parts.c
+
     const solved = {
         topLeft: -parts.b,
         topRight: simplifyRadical((parts.b ** 2) - (4 * parts.a * parts.c), 2),
@@ -157,12 +165,16 @@ const solveQuadratic = (parts) => {
     divideRadical(solved.topRight, reducedBy)
     solved.topLeft = reducedFractionLeft.top
     solved.bottom = reducedFractionLeft.bottom
-
+    if(solved.topLeft === -0){
+        solved.topLeft = 0
+    }
     return solved
 }
 
 export {
     simplifyRadical,
     parseQuadratic,
-    solveQuadratic
+    solveQuadratic,
+    addFractions,
+    reduceFraction
 }
